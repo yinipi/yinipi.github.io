@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pico-ordinateur ATmega32U4 — Jospen Ngalamou Yinipi</title>
+<meta name="description" content="Conception matérielle complète (schéma et routage KiCad) d'une carte mère autour d'un microcontrôleur ATmega32U4.">
+<meta property="og:title" content="Pico-ordinateur ATmega32U4 — Jospen Ngalamou Yinipi">
+<meta property="og:description" content="Conception matérielle complète (schéma et routage KiCad) d'une carte mère autour d'un microcontrôleur ATmega32U4.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230b2b22'/%3E%3Crect x='7' y='7' width='10' height='10' stroke='%23e0b872' stroke-width='1.6' fill='none'/%3E%3Cpath d='M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5' stroke='%23e0b872' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+  /* Animations dynamiques du projet */
+  .proj-highlight-icon { animation: floatIcon 3s ease-in-out infinite; display: inline-block; }
+  @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); text-shadow: 0 10px 15px rgba(224,184,114,0.4); } }
+  
+  .gallery img, .gallery video, .arcade-box, .scope-box, .blueprint-box { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; cursor: pointer; }
+  .gallery img:hover, .gallery video:hover, .arcade-box:hover, .scope-box:hover, .blueprint-box:hover { transform: scale(1.02) translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--copper-bright); z-index: 10; position: relative; }
+  
+  .proj-tag { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards; }
+  .proj-tag:nth-child(1) { animation-delay: 0.1s; } .proj-tag:nth-child(2) { animation-delay: 0.2s; } .proj-tag:nth-child(3) { animation-delay: 0.3s; } .proj-tag:nth-child(4) { animation-delay: 0.4s; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+  
+  .side-box { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .side-box:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-color: var(--copper-dim); }
+  
+  .proj-main > * { animation: slideUpFade 0.6s ease-out backwards; }
+  .proj-main h2:nth-of-type(1) { animation-delay: 0.1s; } .proj-main p:nth-of-type(1) { animation-delay: 0.2s; }
+  .proj-main h2:nth-of-type(2) { animation-delay: 0.3s; } .proj-main ul { animation-delay: 0.4s; }
+  .proj-main h2:nth-of-type(3) { animation-delay: 0.5s; } .proj-main .gallery { animation-delay: 0.6s; }
+  @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body data-theme="electronics">
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <a href="../index.html" class="mark">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect x="7" y="7" width="10" height="10" stroke="#e0b872" stroke-width="1.6"/>
+        <path d="M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5" stroke="#e0b872" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      JOSPEN N.
+    </a>
+    <nav class="links">
+      <a href="../index.html#about">À propos</a>
+      <a href="../index.html#skills">Compétences</a>
+      <a href="../index.html#projects">Projets</a>
+      <a href="../index.html#experience">Parcours</a>
+    </nav>
+    <a href="../index.html#contact" class="navcta">Me contacter</a>
+    <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="mobile-menu">
+    <a href="../index.html#about">À propos</a>
+    <a href="../index.html#skills">Compétences</a>
+    <a href="../index.html#projects">Projets</a>
+    <a href="../index.html#experience">Parcours</a>
+    <a href="../index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="proj-header">
+  <div class="wrap">
+    <a href="../index.html#projects" class="back">← Retour aux projets</a>
+    <div class="ic-partno">PROJ-008</div>
+    <h1>Pico-ordinateur ATmega32U4</h1>
+    <div class="proj-tags">
+      <span class="proj-tag">KiCad</span>
+      <span class="proj-tag">Routage PCB</span>
+      <span class="proj-tag">Gerber</span>
+      <span class="proj-tag">USB</span>
+    </div>
+    <p class="tagline">Conception complète sous KiCad d'une carte mère architecturée autour d'un microcontrôleur ATmega32U4, de la schématique au routage du PCB.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="proj-highlight">
+    <span class="proj-highlight-icon">🚧</span>
+    <div>
+      <div class="proj-highlight-label">Statut du projet</div>
+      <div class="proj-highlight-text">Ce projet est actuellement en cours de développement. Les vues 3D et les schémas finaux seront bientôt ajoutés à cette page.</div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-body">
+  <div class="proj-main">
+    <h2>Contexte &amp; objectif</h2>
+    <p>Afin de valider mes compétences en conception de circuits imprimés (EDA), j'ai conçu de A à Z la carte mère d'un petit ordinateur embarqué. Le but était de maîtriser l'intégration d'un microcontrôleur complet avec son écosystème d'alimentation et de communication.</p>
+
+    <h2>Démarche technique (En cours)</h2>
+    <ul>
+      <li>Création des schémas électroniques sous KiCad, incluant le circuit de reset, l'oscillateur externe et la gestion d'alimentation.</li>
+      <li>Routage du PCB (Printed Circuit Board) en prenant en compte les contraintes d'intégrité du signal (pistes différentielles pour l'USB).</li>
+      <li>Gestion des plans de masse, du placement stratégique des condensateurs de découplage, et génération des fichiers Gerber.</li>
+      <li>Modélisation 3D de la carte pour pré-visualiser l'encombrement final des composants.</li>
+    </ul>
+
+    <h2>Visualisation Hardware</h2>
+    <div class="gallery">
+      <div class="blueprint-box">
+        [ SCHÉMA ÉLECTRIQUE ]<br><br>En attente d'export PDF
+      </div>
+      <div class="blueprint-box">
+        [ ROUTAGE PCB ]<br><br>Vue des pistes cuivre
+      </div>
+      <div class="blueprint-box" style="grid-column: 1 / -1;">
+        [ VUE 3D ]<br><br>Génération en cours...
+      </div>
+    </div>
+  </div>
+
+  <aside class="proj-side">
+    <div class="side-box">
+      <h3>// Fiche technique</h3>
+      <table>
+          <tr><td class="k">MCU Principal</td><td>ATmega32U4</td></tr>
+          <tr><td class="k">Outils EDA</td><td>KiCad</td></tr>
+          <tr><td class="k">Conception</td><td>Schématique, Routage, Gerber</td></tr>
+          <tr><td class="k">Interfaces</td><td>USB, UART, GPIO</td></tr>
+          <tr><td class="k">Statut</td><td>En cours de conception</td></tr>
+      </table>
+    </div>
+  </aside>
+</div>
+
+<div class="prevnext">
+  <a href="proj-007.html"><span class="lbl">← Projet précédent</span>Générateur Mots Croisés</a>
+  <a href="proj-009.html" class="right"><span class="lbl">Projet suivant →</span>Détecteur de Fumée Analogique</a>
+</div>
+
+<footer>© 2026 Jospen Ngalamou Yinipi — Construit avec passion.</footer>
+
+<button class="back-to-top" aria-label="Retour en haut">↑</button>
+<script src="../main.js" defer></script>
+
+</body>
+</html>
