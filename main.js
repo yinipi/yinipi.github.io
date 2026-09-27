@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHexDecrypt();
   initPcbRouter();
   initWatchdog();
+  initGlobe();
 });
 
 // =========================================
@@ -379,9 +380,12 @@ function initHexDecrypt() {
 function initPcbRouter() {
   const canvas = document.getElementById('pcb-canvas');
   if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(pointer: coarse)').matches) return;
+  if (window.innerWidth < 860) return; // trop coûteux sur petit écran
   
   const ctx = canvas.getContext('2d');
   let width, height;
+  let pageVisible = true;
+  document.addEventListener('visibilitychange', () => { pageVisible = !document.hidden; });
   
   function resize() {
     width = canvas.width = window.innerWidth;
@@ -485,6 +489,7 @@ function initPcbRouter() {
   }
 
   function animate() {
+    if (!pageVisible) { requestAnimationFrame(animate); return; }
     ctx.clearRect(0, 0, width, height);
     
     traces.forEach(trace => {
@@ -497,6 +502,137 @@ function initPcbRouter() {
     requestAnimationFrame(animate);
   }
   animate();
+}
+
+// ---------- 4. Globe terrestre filaire — parcours international ----------
+function initGlobe() {
+  const canvas = document.getElementById('globe-canvas');
+  if (!canvas) return;
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctx = canvas.getContext('2d');
+  let size = 0, R = 0, cx = 0, cy = 0;
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    size = rect.width;
+    canvas.width = size * dpr; canvas.height = size * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R = size * 0.42;
+    cx = size / 2; cy = size / 2;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function getCss(varName) {
+    return getComputedStyle(document.body).getPropertyValue(varName).trim();
+  }
+
+  const cities = [
+    { name: 'Douala', lat: 4.05, lon: 9.70, color: '#f5a623' },
+    { name: 'Lille', lat: 50.63, lon: 3.06, color: getCss('--copper-bright') || '#e0b872' },
+  ];
+
+  function project(lat, lon, rotationDeg) {
+    const phi = (lat * Math.PI) / 180;
+    const lambda = ((lon + rotationDeg) * Math.PI) / 180;
+    const x = Math.cos(phi) * Math.sin(lambda);
+    const y = Math.sin(phi);
+    const z = Math.cos(phi) * Math.cos(lambda);
+    return { sx: cx + x * R, sy: cy - y * R, z };
+  }
+
+  function drawGlobe(rotationDeg) {
+    ctx.clearRect(0, 0, size, size);
+
+    const grad = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.1, cx, cy, R);
+    grad.addColorStop(0, 'rgba(233,230,218,.10)');
+    grad.addColorStop(0.6, 'rgba(233,230,218,.03)');
+    grad.addColorStop(1, 'rgba(233,230,218,0)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(233,230,218,.22)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(233,230,218,.14)';
+    ctx.lineWidth = 1;
+    for (let i = 0; i < 6; i++) {
+      const lon = i * 30 + rotationDeg;
+      const rad = (lon * Math.PI) / 180;
+      const rx = Math.abs(Math.sin(rad)) * R;
+      if (rx < 1) continue;
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, R, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'rgba(233,230,218,.10)';
+    for (let lat = -60; lat <= 60; lat += 30) {
+      const phi = (lat * Math.PI) / 180;
+      const ry = Math.sin(phi) * R;
+      const rw = Math.cos(phi) * R;
+      ctx.beginPath();
+      ctx.moveTo(cx - rw, cy - ry);
+      ctx.lineTo(cx + rw, cy - ry);
+      ctx.stroke();
+    }
+
+    const pts = cities.map((c) => ({ ...c, ...project(c.lat, c.lon, rotationDeg) }));
+
+    const [a, b] = pts;
+    if (a.z > 0 && b.z > 0) {
+      const midX = (a.sx + b.sx) / 2;
+      const midY = (a.sy + b.sy) / 2 - R * 0.28;
+      const opacity = Math.min(a.z, b.z) * 0.8;
+      ctx.beginPath();
+      ctx.moveTo(a.sx, a.sy);
+      ctx.quadraticCurveTo(midX, midY, b.sx, b.sy);
+      ctx.strokeStyle = `rgba(224,184,114,${opacity.toFixed(2)})`;
+      ctx.lineWidth = 1.4;
+      ctx.setLineDash([3, 4]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    pts.forEach((p) => {
+      if (p.z < -0.15) return;
+      const alpha = Math.max(0.15, Math.min(1, p.z + 0.5));
+      ctx.beginPath();
+      ctx.arc(p.sx, p.sy, 4, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = alpha;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(p.sx, p.sy, 7, 0, Math.PI * 2);
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = alpha * 0.5;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+  }
+
+  if (reduceMotion) {
+    drawGlobe(-15);
+    return;
+  }
+
+  let rotation = -15;
+  let visible = true;
+  document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
+
+  function frame() {
+    if (visible) {
+      rotation += 0.12;
+      drawGlobe(rotation);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
 }
 
 // ---------- 3. L'Easter Egg "Kernel Panic / Watchdog" ----------
@@ -533,4 +669,3 @@ function initWatchdog() {
     }, 5000);
   });
 }
-

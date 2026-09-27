@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jospen Ngalamou | Ingénieur Systèmes Embarqués & Cyber</title>
+<title>Jospen Ngalamou | Élève-Ingénieur Systèmes Embarqués & Cyber</title>
 <meta name="description" content="Recherche de stage (4 mois min) dès avril 2027 : conception de cartes, développement firmware C/C++ et cybersécurité.">
-<meta property="og:title" content="Jospen Ngalamou — Ingénieur Systèmes Embarqués">
+
+<!-- Balises Open Graph optimisées (WhatsApp, LinkedIn, Twitter) -->
+<meta property="og:title" content="Jospen Ngalamou — Élève-Ingénieur Systèmes Embarqués">
 <meta property="og:description" content="Recherche de stage (4 mois min) dès avril 2027 : conception PCB, firmware et cybersécurité.">
 <meta property="og:image" content="https://yinipi.github.io/img/back_image.png">
 <meta property="og:image:secure_url" content="https://yinipi.github.io/img/back_image.png">
@@ -15,12 +17,41 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yinipi.github.io/img/back_image.png">
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230b2b22'/%3E%3Crect x='7' y='7' width='10' height='10' stroke='%23e0b872' stroke-width='1.6' fill='none'/%3E%3Cpath d='M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5' stroke='%23e0b872' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- Correctifs d'affichage (Typographie "Moins Robot" et animation MCU) -->
+<style>
+  /* Adoucir la typographie pour un rendu plus humain et professionnel */
+  .hero h1, .sec-title, .mark {
+    font-family: var(--sans) !important;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .role {
+    font-family: var(--sans) !important;
+    letter-spacing: 0;
+    font-weight: 600;
+  }
+  .ic-card h3, .tl-item h3, .contact-box h2 {
+    font-family: var(--sans) !important;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Lévitation du MCU */
+  @media (prefers-reduced-motion: no-preference) {
+    .chip { 
+      animation: hero-fade .9s ease .3s forwards, float 6s ease-in-out 1.2s infinite !important; 
+    }
+  }
+</style>
 </head>
 <body data-theme="embedded">
+
+<canvas id="pcb-canvas" aria-hidden="true"></canvas>
 
 <header class="topnav">
   <div class="topnav-inner">
@@ -57,7 +88,7 @@
     <div>
       <div class="eyebrow-pin"><span class="dot"></span>Recherche de stage (4 mois min.) — Avril 2027</div>
       <h1>Jospen Ngalamou
-        <span class="role">Ingénieur Systèmes Embarqués, Cyber &amp; Réseaux</span>
+        <span class="role">Élève-Ingénieur Systèmes Embarqués, Cyber &amp; Réseaux</span>
       </h1>
       <p class="desc">Je conçois des architectures électroniques matérielles et développe le firmware qui les anime. Des circuits imprimés sous KiCad à l'injection de fautes RF en cybersécurité, j'aime comprendre et sécuriser le fonctionnement des systèmes en profondeur.</p>
       <div class="ctas">
@@ -89,6 +120,10 @@
           <circle cx="110" cy="50" r="3"/><circle cx="140" cy="50" r="3"/><circle cx="170" cy="50" r="3"/><circle cx="190" cy="50" r="3"/>
           <circle cx="110" cy="250" r="3"/><circle cx="140" cy="250" r="3"/><circle cx="170" cy="250" r="3"/><circle cx="190" cy="250" r="3"/>
         </g>
+        <circle class="mcu-pulse mcu-pulse-left" cx="90" cy="135" r="2.4"/>
+        <circle class="mcu-pulse mcu-pulse-right" cx="210" cy="165" r="2.4"/>
+        <circle class="mcu-pulse mcu-pulse-top" cx="140" cy="90" r="2.4"/>
+        <circle class="mcu-pulse mcu-pulse-bottom" cx="170" cy="210" r="2.4"/>
       </svg>
     </div>
   </div>
@@ -354,36 +389,46 @@
     <div class="sec-tag">// Trajectoire</div>
     <h2 class="sec-title">Missions &amp; Académique</h2>
   </div>
-  <div class="timeline">
-    <div class="tl-item cyber">
-      <div class="tl-date">Juin 2026 — Juil. 2026</div>
-      <h3>Laboratoire IRCICA (Univ. Lille)</h3>
-      <div class="tl-role">Stagiaire en Cybersécurité Matérielle</div>
-      <p>Mise en œuvre d'un système d'injection de fautes par illumination RF sur microcontrôleurs. Automatisation des tests et acquisition de données en Python.</p>
+  <div class="exp-grid">
+    <div class="timeline">
+      <div class="tl-item cyber">
+        <div class="tl-date">Juin 2026 — Juil. 2026</div>
+        <h3>Laboratoire IRCICA (Univ. Lille)</h3>
+        <div class="tl-role">Stagiaire en Cybersécurité Matérielle</div>
+        <p>Mise en œuvre d'un système d'injection de fautes par illumination RF sur microcontrôleurs. Automatisation des tests et acquisition de données en Python.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025 — 2028</div>
+        <h3>Polytech Lille</h3>
+        <div class="tl-role">Cycle Ingénieur - Systèmes Embarqués, Cybersécurité &amp; Réseaux</div>
+        <p>Spécialisation Internet des Objets (IoT), architecture matérielle et protocoles de communication.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Oct. 2024 — Juil. 2025</div>
+        <h3>Centre de Recherche de l'IUGET (Douala)</h3>
+        <div class="tl-role">Responsable Dépt. Informatique &amp; Projets Embarqués</div>
+        <p>Conception matérielle, développement logiciel orienté IoT et encadrement technique des projets étudiants.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Juin 2023 — Août 2023</div>
+        <h3>Wokbud</h3>
+        <div class="tl-role">Stagiaire Développeur Python</div>
+        <p>Conception et développement de scripts d'automatisation pour les processus internes en Python.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2021 — 2025</div>
+        <h3>Institut Universitaire des Grandes Écoles des Tropiques (IUGET)</h3>
+        <div class="tl-role">Classe Préparatoire &amp; DUT Informatique Industrielle</div>
+        <p>Obtenu avec Mention Bien. Acquisition de bases solides en électronique, logique séquentielle/combinatoire, et programmation industrielle.</p>
+      </div>
     </div>
-    <div class="tl-item">
-      <div class="tl-date">2025 — 2028</div>
-      <h3>Polytech Lille</h3>
-      <div class="tl-role">Cycle Ingénieur - Systèmes Embarqués, Cybersécurité &amp; Réseaux</div>
-      <p>Spécialisation Internet des Objets (IoT), architecture matérielle et protocoles de communication.</p>
-    </div>
-    <div class="tl-item">
-      <div class="tl-date">Oct. 2024 — Juil. 2025</div>
-      <h3>Centre de Recherche de l'IUGET (Douala)</h3>
-      <div class="tl-role">Responsable Dépt. Informatique &amp; Projets Embarqués</div>
-      <p>Conception matérielle, développement logiciel orienté IoT et encadrement technique des projets étudiants.</p>
-    </div>
-    <div class="tl-item">
-      <div class="tl-date">Juin 2023 — Août 2023</div>
-      <h3>Wokbud</h3>
-      <div class="tl-role">Stagiaire Développeur Python</div>
-      <p>Conception et développement de scripts d'automatisation pour les processus internes en Python.</p>
-    </div>
-    <div class="tl-item">
-      <div class="tl-date">2021 — 2025</div>
-      <h3>Institut Universitaire des Grandes Écoles des Tropiques (IUGET)</h3>
-      <div class="tl-role">Classe Préparatoire &amp; DUT Informatique Industrielle</div>
-      <p>Obtenu avec Mention Bien. Acquisition de bases solides en électronique, logique séquentielle/combinatoire, et programmation industrielle.</p>
+
+    <div class="globe-wrap">
+      <canvas id="globe-canvas" aria-hidden="true"></canvas>
+      <div class="globe-caption">
+        <span class="globe-pin"><span class="globe-dot" style="background:#f5a623; box-shadow:0 0 8px #f5a623;"></span>Douala, Cameroun</span>
+        <span class="globe-pin"><span class="globe-dot"></span>Lille, France</span>
+      </div>
     </div>
   </div>
 </section>
@@ -416,7 +461,26 @@
   </div>
 </section>
 
-<footer>© 2026 Jospen Ngalamou Yinipi — Construit avec passion.</footer>
+<footer>
+  © 2026 Jospen Ngalamou Yinipi — Construit avec passion.
+  <div class="wd-line"><button id="wdt-trigger" class="watchdog-trigger" type="button">[ WARNING: Do not trigger Watchdog ]</button></div>
+</footer>
+
+<div id="kernel-panic" class="hidden">
+  <pre><span class="hf">KERNEL PANIC — Hard Fault Exception</span>
+------------------------------------------
+
+R0  = 0x00000000   R1  = 0x2000A3F0
+R2  = 0x00000001   R3  = 0x08003A10
+R12 = 0xDEADBEEF   LR  = 0x08002F1C
+PC  = 0x08003A4C   xPSR= 0x21000000
+
+CFSR = 0x00008200   HFSR = 0x40000000
+
+&gt;&gt;&gt; Stack overflow detected in task 'main_loop'
+&gt;&gt;&gt; System halted.</pre>
+  <div id="panic-action"></div>
+</div>
 
 <button class="back-to-top" aria-label="Retour en haut">↑</button>
 <script src="main.js" defer></script>

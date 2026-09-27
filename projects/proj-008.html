@@ -13,27 +13,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
-<style>
-  /* Animations dynamiques du projet */
-  .proj-highlight-icon { animation: floatIcon 3s ease-in-out infinite; display: inline-block; }
-  @keyframes floatIcon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); text-shadow: 0 10px 15px rgba(224,184,114,0.4); } }
-  
-  .gallery img, .gallery video, .arcade-box, .scope-box, .blueprint-box { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; cursor: pointer; }
-  .gallery img:hover, .gallery video:hover, .arcade-box:hover, .scope-box:hover, .blueprint-box:hover { transform: scale(1.02) translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--copper-bright); z-index: 10; position: relative; }
-  
-  .proj-tag { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards; }
-  .proj-tag:nth-child(1) { animation-delay: 0.1s; } .proj-tag:nth-child(2) { animation-delay: 0.2s; } .proj-tag:nth-child(3) { animation-delay: 0.3s; } .proj-tag:nth-child(4) { animation-delay: 0.4s; }
-  @keyframes popIn { from { opacity: 0; transform: scale(0.8) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-  
-  .side-box { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-  .side-box:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-color: var(--copper-dim); }
-  
-  .proj-main > * { animation: slideUpFade 0.6s ease-out backwards; }
-  .proj-main h2:nth-of-type(1) { animation-delay: 0.1s; } .proj-main p:nth-of-type(1) { animation-delay: 0.2s; }
-  .proj-main h2:nth-of-type(2) { animation-delay: 0.3s; } .proj-main ul { animation-delay: 0.4s; }
-  .proj-main h2:nth-of-type(3) { animation-delay: 0.5s; } .proj-main .gallery { animation-delay: 0.6s; }
-  @keyframes slideUpFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-</style>
 </head>
 <body data-theme="electronics">
 
@@ -137,7 +116,26 @@
   <a href="proj-009.html" class="right"><span class="lbl">Projet suivant →</span>Détecteur de Fumée Analogique</a>
 </div>
 
-<footer>© 2026 Jospen Ngalamou Yinipi — Construit avec passion.</footer>
+<footer>
+  © 2026 Jospen Ngalamou Yinipi — Construit avec passion.
+  <div class="wd-line"><button id="wdt-trigger" class="watchdog-trigger" type="button">[ WARNING: Do not trigger Watchdog ]</button></div>
+</footer>
+
+<div id="kernel-panic" class="hidden">
+  <pre><span class="hf">KERNEL PANIC — Hard Fault Exception</span>
+------------------------------------------
+
+R0  = 0x00000000   R1  = 0x2000A3F0
+R2  = 0x00000001   R3  = 0x08003A10
+R12 = 0xDEADBEEF   LR  = 0x08002F1C
+PC  = 0x08003A4C   xPSR= 0x21000000
+
+CFSR = 0x00008200   HFSR = 0x40000000
+
+&gt;&gt;&gt; Stack overflow detected in task 'main_loop'
+&gt;&gt;&gt; System halted.</pre>
+  <div id="panic-action"></div>
+</div>
 
 <button class="back-to-top" aria-label="Retour en haut">↑</button>
 <script src="../main.js" defer></script>

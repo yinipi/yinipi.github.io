@@ -137,7 +137,26 @@
   <a href="proj-001.html" class="right"><span class="lbl">Projet suivant →</span>HaptiPointer Studio</a>
 </div>
 
-<footer>© 2026 Jospen Ngalamou Yinipi — Construit avec passion.</footer>
+<footer>
+  © 2026 Jospen Ngalamou Yinipi — Construit avec passion.
+  <div class="wd-line"><button id="wdt-trigger" class="watchdog-trigger" type="button">[ WARNING: Do not trigger Watchdog ]</button></div>
+</footer>
+
+<div id="kernel-panic" class="hidden">
+  <pre><span class="hf">KERNEL PANIC — Hard Fault Exception</span>
+------------------------------------------
+
+R0  = 0x00000000   R1  = 0x2000A3F0
+R2  = 0x00000001   R3  = 0x08003A10
+R12 = 0xDEADBEEF   LR  = 0x08002F1C
+PC  = 0x08003A4C   xPSR= 0x21000000
+
+CFSR = 0x00008200   HFSR = 0x40000000
+
+&gt;&gt;&gt; Stack overflow detected in task 'main_loop'
+&gt;&gt;&gt; System halted.</pre>
+  <div id="panic-action"></div>
+</div>
 
 <button class="back-to-top" aria-label="Retour en haut">↑</button>
 <script src="../main.js" defer></script>
