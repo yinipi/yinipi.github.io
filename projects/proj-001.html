@@ -13,6 +13,115 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
+<style>
+  .hardware-showcase {
+    background: linear-gradient(135deg, rgba(11, 43, 34, 0.85), rgba(6, 21, 16, 0.95));
+    border: 1px solid var(--copper);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 48px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(224, 184, 114, 0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .hardware-showcase::before {
+    content: "HARDWARE MODULE // FLAGSHIP";
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--copper);
+    opacity: 0.7;
+  }
+  .hardware-dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  @media(max-width: 768px) {
+    .hardware-dual-grid { grid-template-columns: 1fr; }
+  }
+  .hardware-img-card {
+    background: #04100c;
+    border: 1px solid rgba(224, 184, 114, 0.25);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
+  .hardware-img-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--copper-bright);
+    box-shadow: 0 12px 30px rgba(224, 184, 114, 0.15);
+  }
+  .hardware-img-card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+  .hardware-img-caption {
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--copper-bright);
+    background: rgba(11, 43, 34, 0.5);
+    border-top: 1px solid rgba(224, 184, 114, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .badge-glow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-family: var(--mono);
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.35);
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .spec-item {
+    background: rgba(4, 16, 12, 0.6);
+    border: 1px solid rgba(224, 184, 114, 0.15);
+    padding: 14px;
+    border-radius: 6px;
+  }
+  .spec-item .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--silk-dim);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .spec-item .value {
+    font-size: 14px;
+    color: var(--copper-bright);
+    font-weight: 600;
+  }
+  .video-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  @media(max-width: 768px) {
+    .video-container { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body data-theme="programming">
 
@@ -69,48 +178,111 @@
 </div>
 
 <div class="wrap">
-  <div class="proj-highlight">
-    <span class="proj-highlight-icon">💻</span>
+  <div class="proj-highlight" style="border-left-color: #4ade80;">
+    <span class="proj-highlight-icon">✅</span>
     <div>
-      <div class="proj-highlight-label">Point marquant</div>
-      <div class="proj-highlight-text">Développement de bout en bout : du routage des PCB RF (antennes méandres, USB différentiel) jusqu'au protocole série virtuel et l'interface logicielle utilisateur.</div>
+      <div class="proj-highlight-label" style="color: #4ade80;">Conception &amp; Validation Achevées</div>
+      <div class="proj-highlight-text">Développement complet : du routage des PCB RF (antennes méandres, USB différentiel) jusqu'au protocole série virtuel et l'interface logicielle utilisateur.</div>
     </div>
   </div>
 </div>
 
 <div class="proj-body">
   <div class="proj-main">
-    <h2>Contexte &amp; objectif</h2>
+    <h2>Contexte &amp; Objectif Système</h2>
     <p>Permettre aux orateurs de maîtriser le timing de leurs présentations grâce à des alertes haptiques silencieuses et programmables, sans nécessiter de recompilation de firmware à chaque changement d'horaire.</p>
 
-    <h2>Démarche technique</h2>
-    <ul>
-      <li><strong>Architecture matérielle double :</strong> Conception sous KiCad d'une télécommande émettrice autonome (boutons, pointeur laser, moteur vibrant, alimentation batterie) et d'un dongle récepteur USB au format clé.</li>
-      <li><strong>Transmission radio :</strong> Communication basse consommation 2,4&nbsp;GHz via contrôleurs NRF24L01 avec gestion de l'acquittement automatique.</li>
-      <li><strong>Firmware &amp; USB CDC :</strong> Implémentation de la pile USB pour l'émulation du port série et écriture en direct des timings dans l'EEPROM de l'ATmega32U4.</li>
-      <li><strong>Application de configuration :</strong> Interface graphique développée en Python (Tkinter) permettant d'éditer la table des jalons de la présentation.</li>
-    </ul>
+    <!-- CARTE 1 : TÉLÉCOMMANDE ÉMETTRICE -->
+    <div class="hardware-showcase">
+      <div class="badge-glow">● Carte 1 // Télécommande Émettrice (Transmitter)</div>
+      <h2 style="margin-top: 5px; color: var(--copper-bright); font-size: 1.8rem;">Carte Principale Émettrice (ATmega32U4 &amp; NRF24L01)</h2>
+      <p style="margin-bottom: 20px; font-size: 1.02rem;">Conception sous KiCad de la télécommande autonome intégrant le microcontrôleur, la gestion d'alimentation batterie, le moteur vibrant haptique, l'antenne RF méandre et les boutons de contrôle de présentation.</p>
+      
+      <div class="hardware-dual-grid">
+        <div class="hardware-img-card">
+          <img src="../img/main2.png" alt="Routage PCB Carte Émettrice">
+          <div class="hardware-img-caption">
+            <span>Routage PCB (Cuivre &amp; Pistes)</span>
+            <span style="font-size: 10px; opacity: 0.8;">KiCad</span>
+          </div>
+        </div>
+        <div class="hardware-img-card">
+          <img src="../img/main1.png" alt="Rendu 3D Carte Émettrice">
+          <div class="hardware-img-caption">
+            <span>Modélisation 3D Réaliste</span>
+            <span style="font-size: 10px; opacity: 0.8;">Raytracing</span>
+          </div>
+        </div>
+      </div>
 
-    <h2>Interface logicielle &amp; Schémas</h2>
-    <div class="gallery">
-      <img src="../img/hapti_app.png" alt="Interface graphique de configuration Python HaptiPointer Studio" style="width:100%; border-radius:4px; border:1px solid rgba(233,230,218,.14); grid-column: 1 / -1;">
-      <img src="../img/main1.png" alt="Rendu 3D de la carte principale émettrice" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; border:1px solid rgba(233,230,218,.14);">
-      <img src="../img/recei_3.png" alt="Rendu 3D du dongle USB récepteur" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; border:1px solid rgba(233,230,218,.14);">
+      <div class="spec-grid">
+        <div class="spec-item"><div class="label">MCU</div><div class="value">ATmega32U4</div></div>
+        <div class="spec-item"><div class="label">Radio</div><div class="value">NRF24L01 + Antenne RF</div></div>
+        <div class="spec-item"><div class="label">Actionneur</div><div class="value">Moteur vibrant haptique</div></div>
+      </div>
     </div>
 
-    <h2>Tests matériels en atelier</h2>
-    <div class="gallery" style="margin-top: 14px;">
-      <video src="../img/main-reel.mp4" controls autoplay loop muted playsinline style="width:100%; border-radius:4px; border:1px solid rgba(233,230,218,.14);"></video>
-      <video src="../img/recei_reel.mp4" controls autoplay loop muted playsinline style="width:100%; border-radius:4px; border:1px solid rgba(233,230,218,.14);"></video>
+    <!-- CARTE 2 : DONGLE RÉCEPTEUR USB -->
+    <div class="hardware-showcase">
+      <div class="badge-glow">● Carte 2 // Dongle Récepteur USB (Receiver)</div>
+      <h2 style="margin-top: 5px; color: var(--copper-bright); font-size: 1.8rem;">Dongle Récepteur USB (Receiver Board)</h2>
+      <p style="margin-bottom: 20px; font-size: 1.02rem;">Conception sous KiCad du dongle récepteur au format clé USB, assurant la liaison radio 2.4 GHz et l'émulation du port série virtuel pour la programmation et l'interaction avec le PC.</p>
+      
+      <div class="hardware-dual-grid">
+        <div class="hardware-img-card">
+          <img src="../img/recei_2.png" alt="Routage PCB Dongle Récepteur USB">
+          <div class="hardware-img-caption">
+            <span>Routage PCB (Cuivre &amp; Pistes)</span>
+            <span style="font-size: 10px; opacity: 0.8;">KiCad</span>
+          </div>
+        </div>
+        <div class="hardware-img-card">
+          <img src="../img/recei_3.png" alt="Rendu 3D Dongle Récepteur USB">
+          <div class="hardware-img-caption">
+            <span>Modélisation 3D Réaliste</span>
+            <span style="font-size: 10px; opacity: 0.8;">Raytracing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-item"><div class="label">Connectique</div><div class="value">USB A Intégré (PCB Edge)</div></div>
+        <div class="spec-item"><div class="label">Protocole</div><div class="value">USB CDC / Série Virtuel</div></div>
+        <div class="spec-item"><div class="label">Stockage</div><div class="value">EEPROM Interne ATmega32U4</div></div>
+      </div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--silk-dim);">
+
+    <!-- SECTION LOGICIEL / GUI -->
+    <h2>Interface Logicielle (HaptiPointer Studio)</h2>
+    <p>Application de bureau développée en Python permettant d'éditer la table des jalons de la présentation et de programmer directement l'EEPROM de l'ATmega32U4 via liaison série USB CDC.</p>
+    <div class="hardware-img-card" style="margin-top: 20px; margin-bottom: 30px;">
+      <img src="../img/hapti_app.png" alt="Interface graphique de configuration Python HaptiPointer Studio" style="height: auto; max-height: 480px; object-fit: contain; background: #0b2b22; width: 100%;">
+      <div class="hardware-img-caption">
+        <span>Interface de configuration des timings EEPROM</span>
+        <span>Python / Tkinter</span>
+      </div>
+    </div>
+
+    <!-- SECTION TESTS ATELIER / VIDÉOS -->
+    <h2>Tests Matériels en Atelier</h2>
+    <p>Validation physique du système complet sur établi :</p>
+    <div class="video-container">
       <div>
-        <em>Vidéo 1 : Validation de la carte mère émettrice (test du moteur vibrant haptique et séquencement des LEDs d'état).</em>
+        <div class="hardware-img-card">
+          <video src="../img/main-reel.mp4" controls autoplay loop muted playsinline style="width:100%; height:260px; object-fit:cover; display:block;"></video>
+          <div class="hardware-img-caption"><span>Émetteur : Moteur vibrant &amp; LEDs</span><span>Test Atelier</span></div>
+        </div>
+        <p style="margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--silk-dim);"><em>Validation du retour haptique et du séquencement.</em></p>
       </div>
       <div>
-        <em>Vidéo 2 : Validation du dongle récepteur USB connecté, assurant la réception radio des trames.</em>
+        <div class="hardware-img-card">
+          <video src="../img/recei_reel.mp4" controls autoplay loop muted playsinline style="width:100%; height:260px; object-fit:cover; display:block;"></video>
+          <div class="hardware-img-caption"><span>Récepteur USB : Trames RF</span><span>Test Atelier</span></div>
+        </div>
+        <p style="margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--silk-dim);"><em>Validation de la liaison radio et de l'acquittement.</em></p>
       </div>
     </div>
+
   </div>
 
   <aside class="proj-side">
@@ -159,3 +331,4 @@ CFSR = 0x00008200   HFSR = 0x40000000
 
 </body>
 </html>
+```<FollowUp>{"intent": "Ask if another project or file needs updating", "question": "Souhaites-tu que l'on applique ce même niveau de design d'excellence sur un autre projet de ton portfolio ?"}</FollowUp><ElicitationsGroup>[]</ElicitationsGroup>
