@@ -159,8 +159,10 @@
       <p><strong>Élève-ingénieur à Polytech Lille</strong> spécialisé en Systèmes Embarqués, IoT et Cybersécurité, je suis passionné par l'interface complexe entre le hardware et le code.</p>
       <p>Que ce soit pour manipuler des registres en C, concevoir une application réseau avec des sockets TCP/IP, dessiner les pistes d'une carte mère sous KiCad, ou tester la robustesse d'un microcontrôleur par injection de fautes, j'ai à cœur de maîtriser la chaîne complète. Actuellement basé à Lille, je participe activement à des défis CTF pour affûter ma vision sécurité.</p>
       <div class="stat-row">
-        <div class="stat"><div class="n">2027</div><div class="l">RECHERCHE DE STAGE</div></div>
         <div class="stat"><div class="n">09</div><div class="l">PROJETS MAJEURS</div></div>
+        <div class="stat"><div class="n">07</div><div class="l">CARTES PCB CONÇUES</div></div>
+        <div class="stat"><div class="n">2</div><div class="l">PRIX GETEC 2025</div></div>
+        <div class="stat"><div class="n">2027</div><div class="l">STAGE DÈS AVRIL</div></div>
       </div>
     </div>
   </div>
@@ -269,9 +271,16 @@
     <h2 class="sec-title">Laboratoire &amp; Projets</h2>
     <p class="sec-sub">Une sélection de mes conceptions matérielles, logiciels embarqués et outils réseau.</p>
   </div>
+  <div class="proj-filter" role="group" aria-label="Filtrer les projets">
+    <button class="filter-btn on" data-filter="all">Tous <span>9</span></button>
+    <button class="filter-btn" data-filter="hardware">Électronique &amp; PCB</button>
+    <button class="filter-btn" data-filter="firmware">Firmware embarqué</button>
+    <button class="filter-btn" data-filter="software">Logiciel &amp; algorithmique</button>
+    <button class="filter-btn" data-filter="network">Réseau</button>
+  </div>
   <div class="proj-grid">
 
-    <a class="ic-card" href="projects/proj-001.html">
+    <a class="ic-card" href="projects/proj-001.html" data-cat="hardware firmware software" style="--card-accent:#38bdf8">
       <div class="ic-partno">PROJ-001</div>
       <h3>HaptiPointer Studio</h3>
       <p>Développement d'une application de bureau permettant de programmer les timings d'une télécommande de présentation directement dans l'EEPROM via USB.</p>
@@ -283,7 +292,7 @@
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-002.html">
+    <a class="ic-card" href="projects/proj-002.html" data-cat="hardware" style="--card-accent:#fb7185">
       <div class="ic-partno">PROJ-002</div>
       <h3>ECG Portable (Acquisition)</h3>
       <p>Conception matérielle complète pour l'acquisition d'électrocardiogrammes : réalisation du prototypage et du routage de la carte électronique.</p>
@@ -295,7 +304,7 @@
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-003.html">
+    <a class="ic-card" href="projects/proj-003.html" data-cat="hardware firmware" style="--card-accent:#fb923c">
       <div class="ic-partno">PROJ-003</div>
       <h3>Véhicule à Commande Gestuelle</h3>
       <p>Construction et programmation d'un véhicule robotique piloté à distance par les mouvements de la main, avec traitement des données gyroscopiques.</p>
@@ -307,7 +316,7 @@
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-004.html">
+    <a class="ic-card" href="projects/proj-004.html" data-cat="hardware software" style="--card-accent:#4ade80">
       <div class="ic-partno">PROJ-004</div>
       <h3>Radar de Détection Ultrasons</h3>
       <p>Système de balayage par capteur ultrason, interfacé avec un affichage radar généré en temps réel sur ordinateur.</p>
@@ -319,7 +328,7 @@
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-005.html">
+    <a class="ic-card" href="projects/proj-005.html" data-cat="firmware software" style="--card-accent:#e879f9">
       <div class="ic-partno">PROJ-005</div>
       <h3>Space Invaders &amp; Manette USB</h3>
       <p>Développement d'un clone du jeu d'arcade en C et configuration d'une manette matérielle dédiée utilisant la bibliothèque USB LUFA.</p>
@@ -331,19 +340,19 @@
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-006.html">
+    <a class="ic-card" href="projects/proj-006.html" data-cat="hardware" style="--card-accent:#facc15">
       <div class="ic-partno">PROJ-006</div>
       <h3>Déshydrateur Alimentaire Hybride</h3>
       <p>Dimensionnement et conception d'un déshydrateur hybride équipé d'un système de commutation automatique entre l'énergie solaire et le réseau électrique.</p>
       <table class="spec-table">
         <tr><td class="k">Microcontrôleur</td><td>Arduino</td></tr>
         <tr><td class="k">Gestion d'énergie</td><td>Solaire / Secteur</td></tr>
-        <tr><td class="k">Distinctions</td><td>2e Prix National (GETEC 2025)</td></tr>
+        <tr><td class="k">Distinctions</td><td>1er Régional · 2e National (GETEC 2025)</td></tr>
       </table>
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-007.html">
+    <a class="ic-card" href="projects/proj-007.html" data-cat="software" style="--card-accent:#a78bfa">
       <div class="ic-partno">PROJ-007</div>
       <h3>Générateur de Mots Croisés</h3>
       <p>Jeu interactif avec génération dynamique de grilles, validation par dictionnaire et logique de résolution en temps réel.</p>
@@ -355,19 +364,19 @@
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-008.html">
+    <a class="ic-card" href="projects/proj-008.html" data-cat="hardware network" style="--card-accent:#2dd4bf">
       <div class="ic-partno">PROJ-008</div>
       <h3>Pico-ordinateur ATmega32U4</h3>
-      <p>Conception complète du schéma électronique et du routage d'une carte mère architecturée autour d'un microcontrôleur ATmega32U4.</p>
+      <p>Pico-ordinateur modulaire conçu sous KiCad : une carte mère ATmega32U4 et quatre cartes filles (mémoire, RNDIS, Ethernet, écran).</p>
       <table class="spec-table">
-        <tr><td class="k">Hardware</td><td>Circuit imprimé (PCB)</td></tr>
-        <tr><td class="k">MCU</td><td>ATmega32U4</td></tr>
-        <tr><td class="k">Outils</td><td>KiCad</td></tr>
+        <tr><td class="k">Architecture</td><td>Carte mère + 4 cartes filles</td></tr>
+        <tr><td class="k">Réseau</td><td>Ethernet RJ45, RNDIS (USB)</td></tr>
+        <tr><td class="k">Outils</td><td>KiCad (schéma, routage, 3D)</td></tr>
       </table>
       <div class="ic-more">Voir le détail du projet</div>
     </a>
 
-    <a class="ic-card" href="projects/proj-009.html">
+    <a class="ic-card" href="projects/proj-009.html" data-cat="hardware" style="--card-accent:#f87171">
       <div class="ic-partno">PROJ-009</div>
       <h3>Détecteur de Fumée Analogique</h3>
       <p>Conception, simulation (LTspice) et réalisation d'une chaîne d'instrumentation 100% analogique : de l'acquisition infrarouge à la génération d'une alarme audio.</p>
@@ -456,7 +465,7 @@
       <label for="message">Message</label>
       <textarea id="message" name="message" required></textarea>
       <button type="submit">Envoyer le message</button>
-      <p class="form-note">Formulaire</p>
+      <p class="form-note">Réponse sous 48 h.</p>
     </form>
   </div>
 </section>

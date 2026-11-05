@@ -669,3 +669,19 @@ function initWatchdog() {
     }, 5000);
   });
 }
+
+// ---------- Filtre des projets par domaine de compétence ----------
+document.addEventListener('DOMContentLoaded', () => {
+  const btns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('a.ic-card[data-cat]');
+  if (!btns.length || !cards.length) return;
+  btns.forEach((b) => b.addEventListener('click', () => {
+    const f = b.dataset.filter;
+    btns.forEach((x) => x.classList.toggle('on', x === b));
+    cards.forEach((c) => {
+      const show = f === 'all' || c.dataset.cat.split(' ').includes(f);
+      c.classList.toggle('is-hidden', !show);
+      if (show) { c.classList.add('revealed'); }
+    });
+  }));
+});

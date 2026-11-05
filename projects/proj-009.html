@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Détecteur de Fumée Analogique — Jospen Ngalamou Yinipi</title>
-<meta name="description" content="Conception, simulation LTspice et réalisation matérielle d'une chaîne d'instrumentation 100% analogique pour la détection de fumée.">
+<meta name="description" content="Chaîne d'instrumentation 100 % analogique pour la détection de fumée : barrière infrarouge, trigger de Schmitt, monostable, astable 800 Hz et filtre actif d'ordre 3.">
 <meta property="og:title" content="Détecteur de Fumée Analogique — Jospen Ngalamou Yinipi">
-<meta property="og:description" content="Conception, simulation LTspice et réalisation matérielle d'une chaîne d'instrumentation 100% analogique pour la détection de fumée.">
+<meta property="og:description" content="Chaîne d'instrumentation 100 % analogique pour la détection de fumée : barrière infrarouge, trigger de Schmitt, monostable, astable 800 Hz et filtre actif d'ordre 3.">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230b2b22'/%3E%3Crect x='7' y='7' width='10' height='10' stroke='%23e0b872' stroke-width='1.6' fill='none'/%3E%3Cpath d='M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5' stroke='%23e0b872' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
-<body data-theme="electronics">
+<body data-theme="electronics" data-page="smoke">
 
 <header class="topnav">
   <div class="topnav-inner">
@@ -45,32 +45,61 @@
   </nav>
 </header>
 
-<div class="proj-header">
+<div class="proj-header" data-mark="09">
   <div class="wrap">
     <a href="../index.html#projects" class="back">← Retour aux projets</a>
     <div class="ic-partno">PROJ-009</div>
     <h1>Détecteur de Fumée Analogique</h1>
+
     <div class="proj-tags">
       <span class="proj-tag">LTspice</span>
       <span class="proj-tag">AOP LM324</span>
-      <span class="proj-tag">Filtre Actif Ordre 3</span>
+      <span class="proj-tag">Filtre actif ordre 3</span>
       <span class="proj-tag">KiCad</span>
     </div>
-    <p class="tagline">Conception, simulation et réalisation d'une chaîne d'instrumentation 100% analogique : de la barrière infrarouge à la génération d'une onde sonore pure.</p>
+    <p class="tagline">Conception, simulation et réalisation d'une chaîne d'instrumentation 100 % analogique : de la barrière infrarouge à la génération d'une onde sonore pure.</p>
     <div style="margin-top: 20px;">
-      <a href="../docs/Rapport_final_conception.pdf" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size: 12.5px; padding: 10px 18px;">
-        📄 Consulter le rapport d'intégration (87 pages PDF)
-      </a>
+      <a href="../docs/Rapport_final_conception.pdf" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size: 12.5px; padding: 10px 18px;">📄 Consulter le rapport d'intégration (87 pages PDF)</a>
     </div>
   </div>
 </div>
 
 <div class="wrap">
+  <div class="proj-stats"><div class="stat-card"><div class="v">0 µC</div><div class="l">logique 100 % analogique</div></div><div class="stat-card"><div class="v">800 Hz</div><div class="l">tonalité d’alarme</div></div><div class="stat-card"><div class="v">−60 dB/déc</div><div class="l">filtre actif ordre 3</div></div><div class="stat-card"><div class="v">87 p.</div><div class="l">rapport d’intégration</div></div></div>
   <div class="proj-highlight">
     <span class="proj-highlight-icon">📈</span>
     <div>
       <div class="proj-highlight-label">Point marquant</div>
-      <div class="proj-highlight-text">Aucun microcontrôleur n'a été utilisé. Toute la logique de décision, de temporisation et de synthèse audio (800 Hz) est réalisée matériellement via des amplificateurs opérationnels et un filtrage actif d'ordre 3.</div>
+      <div class="proj-highlight-text">Aucun microcontrôleur : toute la logique de décision, de temporisation et de synthèse audio (800&nbsp;Hz) est réalisée matériellement via des amplificateurs opérationnels et un filtrage actif d'ordre 3.</div>
+    </div>
+  </div>
+  <div class="sig-panel">
+    <div class="sig-bar"><span class="live"></span><span class="sig-title">DÉCLENCHE L’ALARME</span><span class="sig-right">simulation interactive</span></div>
+    <div class="sig-body">
+      <div class="sig-two">
+        <div class="beam" id="beam">
+          <svg viewBox="0 0 440 170" aria-label="Barrière optique infrarouge">
+            <rect x="20" y="52" width="46" height="36" rx="4" fill="rgba(248,113,113,.15)" stroke="#f87171"/><text x="43" y="112">LED IR</text>
+            <rect x="374" y="52" width="46" height="36" rx="4" fill="rgba(233,230,218,.06)" stroke="rgba(233,230,218,.4)"/><text x="397" y="112">Photodiode</text>
+            <line class="beam-line" x1="70" y1="70" x2="370" y2="70"/>
+            <circle class="smoke" cx="190" cy="66" r="16"/><circle class="smoke" cx="214" cy="80" r="12"/><circle class="smoke" cx="236" cy="62" r="14"/><circle class="smoke" cx="205" cy="52" r="10"/>
+            <text x="220" y="150">barrière optique (SFH 4550 / L-93DP3C)</text>
+          </svg>
+          <div class="sig-btns" style="justify-content:center"><button class="sig-btn" id="smoke-btn">💨 Simuler de la fumée</button><button class="sig-btn" id="tone-btn">🔊 Écouter la tonalité 800 Hz</button></div>
+        </div>
+        <div class="leds">
+          <div class="led-row"><span class="led" id="led-schmitt"></span>Trigger de Schmitt<em>anti-bruit</em></div>
+          <div class="led-row"><span class="led" id="led-mono"></span>Porte ET + monostable<em>1 s</em></div>
+          <div class="led-row"><span class="led" id="led-astable"></span>Astable haché (BS170)<em>800 Hz</em></div>
+          <div class="led-row"><span class="led" id="led-siren"></span>Sirène (BC546B)<em>sortie</em></div>
+          <div class="led-row" style="margin-top:6px">Temporisation<em id="timer-val">0,0 s</em></div>
+          <div class="timer-bar"><i id="timer-fill"></i></div>
+        </div>
+      </div>
+      <div style="height:22px"></div>
+<div class="chain"><div class="chain-step" style="--i:0">Barrière IR<small>émission / réception</small></div><div class="chain-step" style="--i:1">Trigger de Schmitt<small>immunité au bruit</small></div><div class="chain-step" style="--i:2">ET + monostable<small>alarme 1 s</small></div><div class="chain-step" style="--i:3">Astable<small>carré 800 Hz</small></div><div class="chain-step" style="--i:4">Passe-bas ordre 3<small>−60 dB/déc</small></div><div class="chain-step" style="--i:5">Ampli BC546B<small>haut-parleur</small></div></div>
+      <div class="wave-morph"><svg viewBox="0 0 600 90" preserveAspectRatio="none" aria-hidden="true"><path class="square" d="M0,70 V20 H30 V70 H60 V20 H90 V70 H120 V20 H150 V70 H180 V20 H210 V70 H240 V20 H270 V70 H300 V20 H330 V70 H360 V20 H390 V70 H420 V20 H450 V70 H480 V20 H510 V70 H540 V20 H570 V70 H600"/><path class="sine" d="M0.0,45.0 L6.0,28.5 L12.0,18.4 L18.0,18.4 L24.0,28.5 L30.0,45.0 L36.0,61.5 L42.0,71.6 L48.0,71.6 L54.0,61.5 L60.0,45.0 L66.0,28.5 L72.0,18.4 L78.0,18.4 L84.0,28.5 L90.0,45.0 L96.0,61.5 L102.0,71.6 L108.0,71.6 L114.0,61.5 L120.0,45.0 L126.0,28.5 L132.0,18.4 L138.0,18.4 L144.0,28.5 L150.0,45.0 L156.0,61.5 L162.0,71.6 L168.0,71.6 L174.0,61.5 L180.0,45.0 L186.0,28.5 L192.0,18.4 L198.0,18.4 L204.0,28.5 L210.0,45.0 L216.0,61.5 L222.0,71.6 L228.0,71.6 L234.0,61.5 L240.0,45.0 L246.0,28.5 L252.0,18.4 L258.0,18.4 L264.0,28.5 L270.0,45.0 L276.0,61.5 L282.0,71.6 L288.0,71.6 L294.0,61.5 L300.0,45.0 L306.0,28.5 L312.0,18.4 L318.0,18.4 L324.0,28.5 L330.0,45.0 L336.0,61.5 L342.0,71.6 L348.0,71.6 L354.0,61.5 L360.0,45.0 L366.0,28.5 L372.0,18.4 L378.0,18.4 L384.0,28.5 L390.0,45.0 L396.0,61.5 L402.0,71.6 L408.0,71.6 L414.0,61.5 L420.0,45.0 L426.0,28.5 L432.0,18.4 L438.0,18.4 L444.0,28.5 L450.0,45.0 L456.0,61.5 L462.0,71.6 L468.0,71.6 L474.0,61.5 L480.0,45.0 L486.0,28.5 L492.0,18.4 L498.0,18.4 L504.0,28.5 L510.0,45.0 L516.0,61.5 L522.0,71.6 L528.0,71.6 L534.0,61.5 L540.0,45.0 L546.0,28.5 L552.0,18.4 L558.0,18.4 L564.0,28.5 L570.0,45.0 L576.0,61.5 L582.0,71.6 L588.0,71.6 L594.0,61.5 L600.0,45.0"/></svg></div>
+      <p class="sig-note">Le filtre d'ordre 3 transforme le signal carré de l'astable (rouge) en sinusoïde quasi pure (vert) en atténuant ses harmoniques.</p>
     </div>
   </div>
 </div>
@@ -78,55 +107,41 @@
 <div class="proj-body">
   <div class="proj-main">
     <h2>Contexte &amp; objectif</h2>
-    <p>Développé dans le cadre du module SE3 (Projet Électronique), ce système d'alarme repose sur une barrière optique infrarouge. Le défi d'ingénierie consistait à traiter un signal analogique fluctuant et bruité pour déclencher une sirène cadencée de manière totalement autonome et matérielle.</p>
+    <p>Développé dans le cadre du module SE3 (Projet Électronique), ce système d'alarme repose sur une barrière optique infrarouge. Le défi consistait à traiter un signal analogique fluctuant et bruité pour déclencher une sirène cadencée de manière totalement autonome et matérielle.</p>
 
     <h2>Démarche technique</h2>
     <ul>
-      <li><strong>Acquisition &amp; Numérisation :</strong> Conversion du signal optique (SFH 4550 / L-93DP3C) et stabilisation via un Trigger de Schmitt non-inverseur pour créer une immunité au bruit.</li>
-      <li><strong>Logique &amp; Temporisation :</strong> Création d'une porte « ET » analogique avec un comparateur, couplée à un monostable calibré pour activer l'alarme pendant exactement 1 seconde.</li>
-      <li><strong>Synthèse Audio :</strong> Un oscillateur astable haché par un MOSFET (BS170) génère un signal carré à 800 Hz.</li>
-      <li><strong>Filtrage &amp; Puissance :</strong> Un filtre passe-bas actif d'ordre 3 en cascade atténue les harmoniques (-60 dB/décade) pour extraire une sinusoïde pure, ensuite amplifiée par un montage émetteur commun (BC546B).</li>
+      <li><strong>Acquisition &amp; mise en forme :</strong> conversion du signal optique (SFH 4550 / L-93DP3C) et stabilisation via un trigger de Schmitt non-inverseur pour l'immunité au bruit.</li>
+      <li><strong>Logique &amp; temporisation :</strong> porte « ET » analogique à comparateur, couplée à un monostable calibré pour activer l'alarme pendant exactement 1 seconde.</li>
+      <li><strong>Synthèse audio :</strong> un oscillateur astable haché par un MOSFET (BS170) génère un signal carré à 800&nbsp;Hz.</li>
+      <li><strong>Filtrage &amp; puissance :</strong> un filtre passe-bas actif d'ordre 3 atténue les harmoniques (−60&nbsp;dB/décade) pour extraire une sinusoïde, amplifiée ensuite par un montage émetteur commun (BC546B).</li>
     </ul>
 
     <h2>Résultats &amp; apprentissages</h2>
-    <p>Chaque étage a été modélisé mathématiquement, simulé sous LTspice, puis validé à l'oscilloscope. Ce projet m'a permis de maîtriser la gestion des imperfections réelles des composants (tolérance des condensateurs, tension de déchet des AOP) face aux modèles théoriques.</p>
+    <p>Chaque étage a été modélisé mathématiquement, simulé sous LTspice, puis validé à l'oscilloscope. Ce projet m'a appris à gérer les imperfections réelles des composants (tolérance des condensateurs, tension de déchet des AOP) face aux modèles théoriques.</p>
 
-    <h2>Traitement du Signal &amp; Maquette</h2>
+    <h2>Mesures &amp; maquette</h2>
     <div class="gallery">
-      <div class="scope-box">
-        f0 = 781.2 Hz<br>Vpp = 18.4 V<br>
-        [ SINE WAVE EXTRACTED ]
-      </div>
-      <div class="blueprint-box">
-        [ LTSPICE SIMULATION ]<br><br>Cascade AOP (Ordre 3)<br>Atténuation : -60 dB/dec
-      </div>
+      <div class="scope-box">f0 = 781.2 Hz<br>Vpp = 18.4 V<br>[ SINE WAVE EXTRACTED ]</div>
+      <div class="blueprint-box">[ LTSPICE SIMULATION ]<br><br>Cascade AOP (ordre 3)<br>Atténuation : −60 dB/déc</div>
     </div>
-    
-    <div class="gallery" style="margin-top: 14px;">
-      <img src="../img/captor.png" alt="Schéma bloc du système" style="width:100%; border-radius:4px; border:1px solid #3b82f6; grid-column: 1 / -1;">
-      <img src="../img/sensor_final.jpeg" alt="Montage expérimental sur breadboard" style="width:100%; border-radius:4px; border:1px solid #3b82f6; grid-column: 1 / -1;">
-    </div>
+    <div style="height:18px"></div>
+    <div class="hardware-img-card"><img src="../img/captor.png" alt="Schéma bloc du système" class="contain"><div class="hardware-img-caption"><span>Schéma bloc de la chaîne</span><span>Synoptique</span></div></div><div style="height:18px"></div><div class="hardware-img-card"><img src="../img/sensor_final.jpeg" alt="Montage expérimental sur breadboard"><div class="hardware-img-caption"><span>Montage expérimental</span><span>Breadboard</span></div></div>
 
-    <h2>Démonstration de l'Avertisseur Sonore</h2>
-    <div class="gallery" style="margin-top: 14px;">
-      <video src="../img/fume.mp4" controls playsinline style="width:100%; border-radius:4px; border:1px solid #3b82f6; grid-column: 1 / -1;"></video>
-    </div>
-    <p style="font-family: var(--mono); font-size: 11.5px; color: var(--silk-dim); margin-top: 12px; text-align: center;">
-      <em>Vidéo : Démonstration du circuit d'alarme sur breadboard. <strong>Activez le son</strong> pour entendre la tonalité à 800Hz et le rapport cyclique générés matériellement.</em>
-    </p>
-
+    <h2>Démonstration de l'avertisseur sonore</h2>
+    <div class="hardware-img-card"><video src="../img/fume.mp4" controls playsinline></video><div class="hardware-img-caption"><span>Activez le son : tonalité 800 Hz générée matériellement</span><span>Vidéo</span></div></div>
   </div>
 
   <aside class="proj-side">
     <div class="side-box">
       <h3>// Fiche technique</h3>
       <table>
-          <tr><td class="k">Documentation</td><td><a href="../docs/Rapport_final_conception.pdf" target="_blank" rel="noopener" style="color:var(--copper-bright); text-decoration:underline;">Rapport PDF (87 p.) ↗</a></td></tr>
-          <tr><td class="k">Simulation</td><td>LTspice</td></tr>
-          <tr><td class="k">Routage</td><td>KiCad</td></tr>
-          <tr><td class="k">Logique</td><td>Trigger, Monostable, Astable</td></tr>
-          <tr><td class="k">Composants</td><td>LM324, BS170, BC546B</td></tr>
-          <tr><td class="k">Validation</td><td>Mesures Oscilloscope réelles</td></tr>
+        <tr><td class="k">Documentation</td><td><a href="../docs/Rapport_final_conception.pdf" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">Rapport PDF (87 p.) ↗</a></td></tr>
+        <tr><td class="k">Simulation</td><td>LTspice</td></tr>
+        <tr><td class="k">Routage</td><td>KiCad</td></tr>
+        <tr><td class="k">Logique</td><td>Trigger, monostable, astable</td></tr>
+        <tr><td class="k">Composants</td><td>LM324, BS170, BC546B</td></tr>
+        <tr><td class="k">Validation</td><td>Mesures oscilloscope réelles</td></tr>
       </table>
     </div>
   </aside>
@@ -160,6 +175,7 @@ CFSR = 0x00008200   HFSR = 0x40000000
 
 <button class="back-to-top" aria-label="Retour en haut">↑</button>
 <script src="../main.js" defer></script>
+<script src="../proj-fx.js" defer></script>
 
 </body>
 </html>

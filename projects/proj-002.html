@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ECG Portable (Acquisition) — Jospen Ngalamou Yinipi</title>
-<meta name="description" content="Conception complète — schéma, routage et prototypage — d'un dispositif portable d'acquisition de signaux électrocardiographiques.">
+<meta name="description" content="Conception d'un dispositif portable d'acquisition ECG : amplification d'instrumentation, filtrage actif, notch 50 Hz et affichage sur écran TFT.">
 <meta property="og:title" content="ECG Portable (Acquisition) — Jospen Ngalamou Yinipi">
-<meta property="og:description" content="Conception complète — schéma, routage et prototypage — d'un dispositif portable d'acquisition de signaux électrocardiographiques.">
+<meta property="og:description" content="Conception d'un dispositif portable d'acquisition ECG : amplification d'instrumentation, filtrage actif, notch 50 Hz et affichage sur écran TFT.">
 <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%230b2b22'/%3E%3Crect x='7' y='7' width='10' height='10' stroke='%23e0b872' stroke-width='1.6' fill='none'/%3E%3Cpath d='M9 2v5M15 2v5M9 17v5M15 17v5M2 9h5M2 15h5M17 9h5M17 15h5' stroke='%23e0b872' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
-<body data-theme="electronics">
+<body data-theme="electronics" data-page="ecg">
 
 <header class="topnav">
   <div class="topnav-inner">
@@ -45,11 +45,12 @@
   </nav>
 </header>
 
-<div class="proj-header">
+<div class="proj-header" data-mark="02">
   <div class="wrap">
     <a href="../index.html#projects" class="back">← Retour aux projets</a>
     <div class="ic-partno">PROJ-002</div>
     <h1>ECG Portable (Acquisition)</h1>
+
     <div class="proj-tags">
       <span class="proj-tag">Biomédical</span>
       <span class="proj-tag">Traitement du signal</span>
@@ -61,11 +62,24 @@
 </div>
 
 <div class="wrap">
+  <div class="proj-stats"><div class="stat-card"><div class="v">~1 mV</div><div class="l">signal bioélectrique capté</div></div><div class="stat-card"><div class="v">50 Hz</div><div class="l">filtre réjecteur (notch)</div></div><div class="stat-card"><div class="v">3</div><div class="l">électrodes de dérivation</div></div><div class="stat-card"><div class="v">TFT SPI</div><div class="l">affichage autonome</div></div></div>
   <div class="proj-highlight">
     <span class="proj-highlight-icon">🫀</span>
     <div>
       <div class="proj-highlight-label">Point marquant</div>
       <div class="proj-highlight-text">Chaîne d'instrumentation biomédicale complète : captation par électrodes de surface, rejet du mode commun, filtrage actif du bruit secteur (50&nbsp;Hz) et restitution en direct sur écran autonome et traceur série.</div>
+    </div>
+  </div>
+  <div class="sig-panel">
+    <div class="sig-bar"><span class="live"></span><span class="sig-title">MONITEUR ECG</span><span class="sig-right">simulation du tracé</span></div>
+    <div class="sig-body">
+      <div class="ecg-screen">
+        <div class="ecg-readout"><span class="hr">70 BPM</span><span>NOTCH 50 Hz ✔</span></div>
+        <svg viewBox="0 0 1400 150" preserveAspectRatio="none" aria-hidden="true"><path class="ecg-line" d="M0,90 L40,90 Q55,72 70,90 L90,90 L100,98 L112,22 L124,128 L134,90 L160,90 Q178,60 196,90 L200,90 L240,90 Q255,72 270,90 L290,90 L300,98 L312,22 L324,128 L334,90 L360,90 Q378,60 396,90 L400,90 L440,90 Q455,72 470,90 L490,90 L500,98 L512,22 L524,128 L534,90 L560,90 Q578,60 596,90 L600,90 L640,90 Q655,72 670,90 L690,90 L700,98 L712,22 L724,128 L734,90 L760,90 Q778,60 796,90 L800,90 L840,90 Q855,72 870,90 L890,90 L900,98 L912,22 L924,128 L934,90 L960,90 Q978,60 996,90 L1000,90 L1040,90 Q1055,72 1070,90 L1090,90 L1100,98 L1112,22 L1124,128 L1134,90 L1160,90 Q1178,60 1196,90 L1200,90 L1240,90 Q1255,72 1270,90 L1290,90 L1300,98 L1312,22 L1324,128 L1334,90 L1360,90 Q1378,60 1396,90 L1400,90"/></svg>
+      </div>
+      <div style="height:22px"></div>
+<div class="chain"><div class="chain-step" style="--i:0">Électrodes<small>surface, ~1 mV</small></div><div class="chain-step" style="--i:1">Ampli d'instrumentation<small>CMRR élevé</small></div><div class="chain-step" style="--i:2">Passe-bande<small>filtre actif</small></div><div class="chain-step" style="--i:3">Notch 50 Hz<small>réjection secteur</small></div><div class="chain-step" style="--i:4">Échantillonnage<small>microcontrôleur</small></div><div class="chain-step" style="--i:5">Affichage<small>TFT SPI + série</small></div></div>
+      <p class="sig-note">Le parcours du signal, de la peau à l'écran : chaque étage retire une source de bruit avant la numérisation.</p>
     </div>
   </div>
 </div>
@@ -77,41 +91,19 @@
 
     <h2>Démarche technique</h2>
     <ul>
-      <li><strong>Conditionnement analogique :</strong> Amplification d'instrumentation différentielle à haut taux de réjection du mode commun (TRMC / CMRR).</li>
-      <li><strong>Filtrage actif :</strong> Étage passe-bande et filtre réjecteur de bande (notch 50&nbsp;Hz) pour éliminer les artéfacts musculaires et les perturbations du réseau électrique.</li>
-      <li><strong>Numérisation &amp; Affichage :</strong> Échantillonnage via microcontrôleur, gestion de l'affichage graphique sur écran TFT SPI et transmission série temps réel.</li>
+      <li><strong>Conditionnement analogique :</strong> amplification d'instrumentation différentielle à haut taux de réjection du mode commun (TRMC / CMRR).</li>
+      <li><strong>Filtrage actif :</strong> étage passe-bande et filtre réjecteur de bande (notch 50&nbsp;Hz) pour éliminer les artéfacts musculaires et les perturbations du réseau électrique.</li>
+      <li><strong>Numérisation &amp; affichage :</strong> échantillonnage via microcontrôleur, gestion de l'affichage graphique sur écran TFT SPI et transmission série temps réel.</li>
     </ul>
 
-    <h2>Captation &amp; Environnement de test</h2>
-    <div class="gallery">
-      <div class="scope-box">
-        V_OUT = 1.2 V<br>FREQ = 1.1 Hz<br>[ ECG PATTERN DETECTED ]
-      </div>
-      <img src="../img/ecg1.jpeg" alt="Positionnement des électrodes d'acquisition sur le torse" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; border:1px solid #3b82f6;">
-      <img src="../img/ecg3.jpeg" alt="Écran TFT autonome affichant l'initialisation du projet Electrocom" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; border:1px solid #3b82f6;">
-      <img src="../img/ecg3.png" alt="Tracé brut de l'onde ECG sur le traceur série" style="width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:4px; border:1px solid #3b82f6;">
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--silk-dim);">
-      <div>
-        <em>Haut : Simulation oscilloscope et pose différentielle des trois électrodes de dérivation.</em>
-      </div>
-      <div>
-        <em>Bas : Démarrage de l'interface TFT portable et restitution du complexe QRS sur traceur série.</em>
-      </div>
-    </div>
+    <h2>Captation &amp; environnement de test</h2>
+    <div class="hardware-img-card"><img src="../img/ecg1.jpeg" alt="Positionnement des électrodes d'acquisition"><div class="hardware-img-caption"><span>Pose différentielle des trois électrodes</span><span>Acquisition</span></div></div>
+    <div class="media-pair"><div class="hardware-img-card"><img src="../img/ecg3.jpeg" alt="Écran TFT autonome à l'initialisation"><div class="hardware-img-caption"><span>Démarrage de l’interface TFT portable</span><span>TFT SPI</span></div></div><div class="hardware-img-card"><img src="../img/ecg3.png" alt="Tracé ECG sur le traceur série"><div class="hardware-img-caption"><span>Complexe QRS sur traceur série</span><span>Série</span></div></div></div>
 
-    <h2>Démonstrations Vidéo</h2>
-    <div class="gallery" style="margin-top: 20px;">
-      <video src="../img/ecg-final.mp4" controls autoplay loop muted playsinline style="width:100%; border-radius:4px; border:1px solid #3b82f6;"></video>
-      <video src="../img/ecg.mp4" controls autoplay loop muted playsinline style="width:100%; border-radius:4px; border:1px solid #3b82f6;"></video>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--silk-dim);">
-      <div>
-        <em>Vidéo 1 : Séquence d'initialisation matérielle avec écran TFT autonome affichant la barre de progression puis la grille ECG.</em>
-      </div>
-      <div>
-        <em>Vidéo 2 : Défilement continu du tracé électrocardiographique filtré en conditions réelles.</em>
-      </div>
+    <h2>Démonstrations vidéo</h2>
+    <div class="media-pair">
+      <div><div class="hardware-img-card"><video src="../img/ecg-final.mp4" controls autoplay loop muted playsinline></video><div class="hardware-img-caption"><span>Initialisation matérielle &amp; grille ECG</span><span>Vidéo 1</span></div></div><p class="media-note">Écran TFT autonome affichant la barre de progression puis la grille ECG.</p></div>
+      <div><div class="hardware-img-card"><video src="../img/ecg.mp4" controls autoplay loop muted playsinline></video><div class="hardware-img-caption"><span>Tracé filtré en conditions réelles</span><span>Vidéo 2</span></div></div><p class="media-note">Défilement continu du tracé électrocardiographique filtré.</p></div>
     </div>
   </div>
 
@@ -121,8 +113,8 @@
       <table>
         <tr><td class="k">Type</td><td>Acquisition biomédicale</td></tr>
         <tr><td class="k">Signal</td><td>ECG (onde P, QRS, T)</td></tr>
-        <tr><td class="k">Traitement</td><td>Ampli d'instrumentation &amp; Notch 50&nbsp;Hz</td></tr>
-        <tr><td class="k">Affichage</td><td>Écran TFT SPI &amp; Plotter série</td></tr>
+        <tr><td class="k">Traitement</td><td>Ampli d'instrumentation &amp; notch 50&nbsp;Hz</td></tr>
+        <tr><td class="k">Affichage</td><td>Écran TFT SPI &amp; plotter série</td></tr>
         <tr><td class="k">Statut</td><td>Prototype fonctionnel validé</td></tr>
       </table>
     </div>
@@ -157,6 +149,7 @@ CFSR = 0x00008200   HFSR = 0x40000000
 
 <button class="back-to-top" aria-label="Retour en haut">↑</button>
 <script src="../main.js" defer></script>
+<script src="../proj-fx.js" defer></script>
 
 </body>
 </html>
